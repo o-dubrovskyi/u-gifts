@@ -100,21 +100,19 @@ export const items: Array<{ [id: number]: ItemInterface }> = [
   { 3: item3 },
 ];
 
-export interface PlaceInterface {
+export interface EntityInterface {
   id: number;
   name: string;
 }
 
-export interface RoomInterface {
-  id: number;
+export interface PlaceInterface extends EntityInterface {}
+
+export interface RoomInterface extends EntityInterface {
   placeId: number;
-  name: string;
 }
 
-export interface ItemInterface {
-  id: number;
+export interface ItemInterface extends EntityInterface {
   roomId: number | null;
-  name: string;
   parentId: number | null;
   childId: number[];
 }

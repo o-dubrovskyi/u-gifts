@@ -3,7 +3,11 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
-import Navigation from './navigation';
+import Amplify from '@aws-amplify/core';
+import { awsMobile as config } from './aws.expoerts';
+import { AuthLoadingScreen } from './navigation/Navigation';
+
+Amplify.configure(config);
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -14,7 +18,7 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme} />
+        <AuthLoadingScreen colorScheme={colorScheme} />
         <StatusBar />
       </SafeAreaProvider>
     );

@@ -1,0 +1,7 @@
+{
+  "schemaPath": "backend/api/amplifyDatasource/schema.graphql",
+  "includes": ["*"],
+  "extensions": {
+    "endpoints": {}
+  }
+}

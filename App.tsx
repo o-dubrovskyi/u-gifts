@@ -7,6 +7,17 @@ import Amplify from '@aws-amplify/core';
 import { awsMobile as config } from './aws.expoerts';
 import { AuthLoadingScreen } from './navigation/Navigation';
 
+import { DataStore } from 'aws-amplify';
+import ExpoSQLiteAdapter
+  from '@aws-amplify/datastore-storage-adapter/lib/ExpoSQLiteAdapter/ExpoSQLiteAdapter';
+// import ExpoSQLiteAdapter
+//   from '@aws-amplify/datastore-storage-adapter/lib-esm/ExpoSQLiteAdapter/ExpoSQLiteAdapter';
+// import { ExpoSQLiteAdapter } from '@aws-amplify/datastore-storage-adapter/ExpoSQLiteAdapter';
+
+DataStore.configure({
+  storageAdapter: ExpoSQLiteAdapter
+});
+
 Amplify.configure(config);
 
 export default function App() {

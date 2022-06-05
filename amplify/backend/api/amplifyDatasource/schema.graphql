@@ -1,0 +1,11 @@
+type User @model {
+  id: ID!
+  places: [Place] @hasMany(indexName: "byUser", fields: ["id"])
+}
+
+type Place @model {
+  id: ID!
+  name: String!
+  userID: ID! @index(name: "byUser", sortKeyFields: ["name"])
+  user: User! @belongsTo(fields: ["userID"])
+}

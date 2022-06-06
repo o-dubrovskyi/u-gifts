@@ -27,6 +27,7 @@
         "@react-navigation/native": "^6.0.10",
         "@react-navigation/native-stack": "^6.1.0",
         "@react-navigation/stack": "^6.2.1",
+        "@types/react-redux": "^7.1.24",
         "amplify-app": "^4.2.33",
         "aws-amplify": "^4.3.24",
         "expo": "~44.0.0",
@@ -46,7 +47,9 @@
         "react-native-reanimated": "~2.3.1",
         "react-native-safe-area-context": "3.3.2",
         "react-native-screens": "~3.10.1",
-        "react-native-web": "0.17.1"
+        "react-native-web": "0.17.1",
+        "react-redux": "^8.0.2",
+        "redux": "^4.2.0"
     },
     "devDependencies": {
         "@babel/core": "^7.12.9",

@@ -2,7 +2,7 @@ import { FlatList, SafeAreaView, StyleSheet } from 'react-native';
 
 import { TextInput } from 'react-native';
 import { Text, View } from '../components/Themed';
-import { RootTabScreenProps } from '../types';
+import { RootTabScreenProps } from '../../types';
 import { useState } from 'react';
 import { EntityInterface, items } from '../constants/Entities';
 

@@ -11,7 +11,7 @@ import NotFoundScreen from '../screens/NotFoundScreen';
 import TabSearchScreen from '../screens/TabSearchScreen';
 import TabListsScreen from '../screens/TabListsScreen';
 import TabSettingsScreen from '../screens/TabSettingsScreen';
-import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
+import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import { TabBarIcon } from '../components/TabBarIcon';
 import { HeaderRightIcon } from '../components/HeaderRightIcon';

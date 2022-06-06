@@ -1,10 +1,11 @@
+import { registerRootComponent }  from 'expo';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Amplify from '@aws-amplify/core';
-import { awsMobile as config } from './aws.expoerts';
+import awsMobileConfig from './aws-exports';
 import { AuthLoadingScreen } from './navigation/Navigation';
 
 import { DataStore } from 'aws-amplify';
@@ -18,9 +19,9 @@ DataStore.configure({
   storageAdapter: ExpoSQLiteAdapter
 });
 
-Amplify.configure(config);
+Amplify.configure(awsMobileConfig);
 
-export default function App() {
+function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
 
@@ -35,3 +36,7 @@ export default function App() {
     );
   }
 }
+
+registerRootComponent(App);
+
+export default App;

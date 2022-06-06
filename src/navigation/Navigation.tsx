@@ -6,7 +6,7 @@ import Auth from '@aws-amplify/auth';
 import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { AuthNavigator } from './AuthNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
-import { RootNavigator } from '.';
+import { RootNavigator } from './index';
 
 const styles = StyleSheet.create({
   container: {

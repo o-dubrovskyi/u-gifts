@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   StyleSheet, View, ActivityIndicator
 } from 'react-native';
@@ -17,78 +17,65 @@ const styles = StyleSheet.create({
   },
 });
 
-export class AuthLoadingScreen extends React.Component {
-  state = {
-    userToken: null,
-    loading: true,
-    colorScheme: null,
-  };
+export const AuthLoadingScreen = (props: Props) => {
+  const [userToken, setUserToken] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  constructor(props: any) {
-    super(props);
+  const { colorScheme } = props;
 
-    this.signOut = this.signOut.bind(this);
-    this.signIn = this.signIn.bind(this);
+  const showLoadingSpinner = (!userToken && loading);
+  let view;
 
-    this.state.colorScheme = props.colorScheme;
-  }
+  const signIn = useCallback((user: any) => {
+    setUserToken(user.signInUserSession.accessToken.jwtToken);
 
-  async componentDidMount() {
-    await this.loadApp();
-  }
+    console.log(user);
+  }, []);
 
-  async loadApp() {
-    await Auth.currentAuthenticatedUser()
+  useEffect(() => {
+    Auth.currentAuthenticatedUser()
       .then((user) => {
-        this.signIn(user);
+        signIn(user);
       })
       .catch(() => {
         console.log('err signing in');
       });
-    this.setState({
-      loading: false,
-    });
-  }
 
-  async signOut() {
+    setLoading(false);
+  }, []);
+
+  const signOut = useCallback(async () => {
     await Auth.signOut()
       .catch((err) => {
         console.log('ERROR: ', err);
       });
-    this.setState({ userToken: null });
-  }
 
-  async signIn(user: any) {
-    this.setState({
-      userToken: user.signInUserSession.accessToken.jwtToken,
-    });
-  }
+    setUserToken(null);
+  }, []);
 
-  render() {
-    const { userToken, loading } = this.state;
-    const showLoadingSpinner = (!userToken && loading);
-    let view;
-
-    if (showLoadingSpinner) {
-      view = (
-        <View style={styles.container}>
-          <ActivityIndicator size="large" color="#aaa" />
-        </View>
-      );
-    } else if (!userToken) {
-      view = <AuthNavigator signIn={this.signIn} />;
-    } else {
-      view =  <RootNavigator />;
-      // view = <AppNavigator signOut={this.signOut} />;
-    }
-
-    return (
-      <NavigationContainer
-        linking={LinkingConfiguration}
-        theme={this.state.colorScheme === 'dark' ? DarkTheme : DefaultTheme}
-      >
-        {view}
-      </NavigationContainer>
+  if (showLoadingSpinner) {
+    view = (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color="#aaa" />
+      </View>
     );
+  } else if (!userToken) {
+    view = <AuthNavigator signIn={signIn} />;
+  } else {
+    view =  <RootNavigator />;
+    // view = <AppNavigator signOut={this.signOut} />;
   }
+
+  return (
+    <NavigationContainer
+      linking={LinkingConfiguration}
+      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+    >
+      {view}
+    </NavigationContainer>
+  );
 }
+
+type Props = {
+  colorScheme: string,
+};

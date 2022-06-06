@@ -11,6 +11,8 @@ import { AuthLoadingScreen } from './navigation/Navigation';
 import { DataStore } from 'aws-amplify';
 import ExpoSQLiteAdapter
   from '@aws-amplify/datastore-storage-adapter/lib/ExpoSQLiteAdapter/ExpoSQLiteAdapter';
+import { store } from './store';
+import { Provider } from 'react-redux';
 // import ExpoSQLiteAdapter
 //   from '@aws-amplify/datastore-storage-adapter/lib-esm/ExpoSQLiteAdapter/ExpoSQLiteAdapter';
 // import { ExpoSQLiteAdapter } from '@aws-amplify/datastore-storage-adapter/ExpoSQLiteAdapter';
@@ -24,17 +26,22 @@ Amplify.configure(awsMobileConfig);
 function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
+  let result;
 
   if (!isLoadingComplete) {
-    return null;
+    result = null;
   } else {
-    return (
-      <SafeAreaProvider>
-        <AuthLoadingScreen colorScheme={colorScheme} />
-        <StatusBar />
-      </SafeAreaProvider>
-    );
+    result = <SafeAreaProvider>
+      <AuthLoadingScreen colorScheme={colorScheme} />
+      <StatusBar />
+    </SafeAreaProvider>
   }
+
+  return (
+    <Provider store={store}>
+      { result }
+    </Provider>
+  );
 }
 
 registerRootComponent(App);

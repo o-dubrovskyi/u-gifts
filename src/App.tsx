@@ -11,9 +11,6 @@ import { AuthLoadingScreen } from './navigation/Navigation';
 import { DataStore } from 'aws-amplify';
 import { ExpoSQLiteAdapter } from '@aws-amplify/datastore-storage-adapter/ExpoSQLiteAdapter';
 
-import { store } from './store';
-import { Provider } from 'react-redux';
-
 DataStore.configure({
   storageAdapter: ExpoSQLiteAdapter
 });
@@ -35,10 +32,7 @@ const App = () => {
   }
 
   return (
-
-    <Provider store={store}>
     <>{ result }</>
-    </Provider>
   );
 }
 

@@ -9,13 +9,10 @@ import awsMobileConfig from './aws-exports';
 import { AuthLoadingScreen } from './navigation/Navigation';
 
 import { DataStore } from 'aws-amplify';
-import ExpoSQLiteAdapter
-  from '@aws-amplify/datastore-storage-adapter/lib/ExpoSQLiteAdapter/ExpoSQLiteAdapter';
+import { ExpoSQLiteAdapter } from '@aws-amplify/datastore-storage-adapter/ExpoSQLiteAdapter';
+
 import { store } from './store';
 import { Provider } from 'react-redux';
-// import ExpoSQLiteAdapter
-//   from '@aws-amplify/datastore-storage-adapter/lib-esm/ExpoSQLiteAdapter/ExpoSQLiteAdapter';
-// import { ExpoSQLiteAdapter } from '@aws-amplify/datastore-storage-adapter/ExpoSQLiteAdapter';
 
 DataStore.configure({
   storageAdapter: ExpoSQLiteAdapter
@@ -23,7 +20,7 @@ DataStore.configure({
 
 Amplify.configure(awsMobileConfig);
 
-function App() {
+const App = () => {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
   let result;
@@ -38,8 +35,9 @@ function App() {
   }
 
   return (
+
     <Provider store={store}>
-      { result }
+    <>{ result }</>
     </Provider>
   );
 }

@@ -1,11 +1,20 @@
-type User @model {
-  id: ID!
-  places: [Place] @hasMany(indexName: "byUser", fields: ["id"])
-}
-
 type Place @model {
   id: ID!
   name: String!
-  userID: ID! @index(name: "byUser", sortKeyFields: ["name"])
-  user: User! @belongsTo(fields: ["userID"])
+  rooms: [Room] @hasMany(indexName: "byPlace", fields: ["id"])
+}
+
+type Room @model {
+  id: ID!
+  name: String!
+  placeID: ID! @index(name: "byPlace", sortKeyFields: ["name"])
+  place: Place! @belongsTo(fields: ["placeID"])
+  items: [Item] @hasMany(indexName: "byRoom", fields: ["id"])
+}
+
+type Item @model {
+  id: ID!
+  name: String!
+  roomID: ID! @index(name: "byRoom", sortKeyFields: ["name"])
+  room: Room! @belongsTo(fields: ["roomID"])
 }

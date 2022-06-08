@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import {
   StyleSheet, View, ActivityIndicator
 } from 'react-native';
-import Auth from '@aws-amplify/auth';
+import Auth, { CognitoUser } from '@aws-amplify/auth';
 import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { AuthNavigator } from './AuthNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 });
 
 export const AuthLoadingScreen = (props: Props) => {
-  const [userToken, setUserToken] = useState(null);
+  const [userToken, setUserToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   const { colorScheme } = props;
@@ -26,29 +26,31 @@ export const AuthLoadingScreen = (props: Props) => {
   const showLoadingSpinner = (!userToken && loading);
   let view;
 
-  const signIn = useCallback((user: any) => {
-    setUserToken(user.signInUserSession.accessToken.jwtToken);
+  const signIn = useCallback(async (user: CognitoUser) => {
+    const jwtToken = user.getSignInUserSession()?.getAccessToken().getJwtToken();
 
-    console.log(user);
+    if (!jwtToken) {
+      throw Error('Unexpected behaviour - empty jwt token.');
+    }
+
+    const user1: CognitoUser = await Auth.currentAuthenticatedUser()
+
+    setUserToken(jwtToken);
+
+    console.log(user1.getUsername());
   }, []);
 
   useEffect(() => {
     Auth.currentAuthenticatedUser()
-      .then((user) => {
-        signIn(user);
-      })
-      .catch(() => {
-        console.log('err signing in');
-      });
+      .then((user) => signIn(user).then())
+      .catch(() => console.log('err signing in'));
 
     setLoading(false);
   }, []);
 
   const signOut = useCallback(async () => {
     await Auth.signOut()
-      .catch((err) => {
-        console.log('ERROR: ', err);
-      });
+      .catch((err) => console.log('ERROR: ', err));
 
     setUserToken(null);
   }, []);

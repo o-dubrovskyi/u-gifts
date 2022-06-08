@@ -91,9 +91,9 @@
   resolved "https://registry.npmjs.org/@aws-amplify/datastore-storage-adapter/-/datastore-storage-adapter-1.3.2.tgz"
   integrity sha512-XObBXe0ia/8NyvvRB5EPUpU/lip4LeXtFey4VUu5JkDnOhZWBPJzq90jzm5fIB3ilpF3vatCv2bkyCaPlMoAbQ==
 
-"@aws-amplify/datastore@3.11.3":
+"@aws-amplify/datastore@3.11.3", "@aws-amplify/datastore@^3.11.3":
   version "3.11.3"
-  resolved "https://registry.npmjs.org/@aws-amplify/datastore/-/datastore-3.11.3.tgz"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/datastore/-/datastore-3.11.3.tgz#b30d6c39e7f429848bbfefb60bdd90962f38f5c8"
   integrity sha512-/L0141hZ6o8y8FkZTa0+AmXclmvP4h2naE+prh8w7OX52pK+l0hTL615OzAK8YPZA9gs7yvekeGaj63984xWWg==
   dependencies:
     "@aws-amplify/api" "4.0.42"
